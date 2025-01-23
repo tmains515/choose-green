@@ -1,14 +1,14 @@
 
 export default function Home() {
 	return (
-<div className="grid grid-rows-8 grid-cols-8 bg-[#ededed] shadow-xl rounded-2xl border border-gray-300 p-4 gap-10">
+<div className="grid grid-rows-8 grid-cols-8 bg-[#ededed] shadow-xl rounded-2xl border border-gray-300 p-4">
   {/* Header */}
   <header className="w-full grid col-start-2 col-span-6 shadow-md mt-2 p-10 rounded-lg bg-white">
     <h1 className="text-5xl text-green-400">Choose Green</h1>
   </header>
 
   {/* Navigation */}
-  <nav className="w-full grid col-start-3 col-span-4 shadow-md h-16 rounded-full bg-gray-100 border border-gray-300">
+  <nav className="w-full grid col-start-3 col-span-4 shadow-md mt-2 h-16 rounded-full bg-gray-100 border border-gray-300">
   </nav>
 
   {/* Left Div */}
@@ -17,7 +17,7 @@ export default function Home() {
   </div>
 
   {/* Main Content */}
-  <main className="col-start-4 col-span-4 row-span-5 rounded-xl bg-white p-6 shadow-inner">
+  <main className="col-start-4 col-span-4 row-span-5 rounded-xl bg-white p-6 shadow-inner ml-4">
     <p className="text-gray-600 text-center">Main content goes here</p>
   </main>
 </div>
