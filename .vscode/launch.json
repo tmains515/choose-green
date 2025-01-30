@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ChooseGreenApplication<choose-green>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.choose_green.choose_green.ChooseGreenApplication",
+            "projectName": "choose-green",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
