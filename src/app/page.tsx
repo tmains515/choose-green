@@ -1,7 +1,32 @@
 'use client'
 import { useState } from "react";
+import ItemTile from "./components/ItemTile";
 export default function Home() {
-	const [search, setSearch] = useState("Example Search");
+	const [search, setSearch] = useState<string>("Thing");
+	const [searchResults, setSearchResults] = useState([
+	  {
+		name: "thing",
+		rating: 4,
+		price: "$10",
+	  },
+	]);
+
+	const fetchSearch = async() => {
+		const request = await fetch('/api/search', {
+			method: 'GET',
+			headers: {
+				'Content-Type' : 'application/json'
+			}
+		})
+		if(!request.ok){
+			throw new Error("Could not fetch search data")
+		}
+		const data = await request.json()
+		console.log(data)
+		setSearchResults(data)
+	}
+
+
 	return (
 		<div className="grid grid-rows-8 grid-cols-8 bg-[#ededed] shadow-xl rounded-2xl border border-gray-300 p-4">
 			{/* Header */}
@@ -24,7 +49,7 @@ export default function Home() {
 							</select>
 						</div>
 						<input className="w-full z-20 pl-4 shadow-md h-12 rounded-full border border-gray-300 focus:outline-none focus:border-[#7de49f] focus:ring-2 focus:ring-[#7de49f]"/>
-						<button className="mx-10 hover:bg-slate-500 ">
+						<button className="mx-10 hover:bg-slate-500" onClick={fetchSearch}>
 							<img src="/search.png" alt="" className="size w-[40px] h-[35px]" />
 						</button>
 					</div>
@@ -38,8 +63,11 @@ export default function Home() {
 
 			{/* Main Content */}
 			<main className="col-start-4 col-span-4 row-span-5 rounded-xl bg-white p-6 shadow-inner ml-4 overflow-y-scroll">
-				<h1 className="text-gray-600 text-2xl">{search}</h1>
-				<div className="mt-2">asdas</div>
+				<h1 className="text-gray-600 text-2xl">Search for {search}</h1>
+				{searchResults.length > 0 ? searchResults.map( (item, index) => (
+					<ItemTile key={index} name={item.name} price={item.price} rating={item.rating}/>
+				)	
+			): "Nothing to display"}
 			</main>
 		</div>
 
