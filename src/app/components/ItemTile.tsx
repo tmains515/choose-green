@@ -8,15 +8,16 @@ interface props{
     rating: string
 }
 
-const ItemTile: FC<props> = ({image, name, price, rating }) => {
+const ItemTile: FC<props> = ({ image, name, price, rating }) => {
     return (
-        <div className="grid grid-cols-4 items-center m-4 rounded-md shadow-xl border border-gray-200 p-2 text-center text-gray-500">
-            <img src={image} alt="" className="w-10 h-10 mx-auto" />
-            <p>{name}</p>
-            <p>{price == "-1" ? "Price not Listed" : price}</p>
-            <p>{rating}</p>
+        <div className="flex flex-col">
+            <p className="ml-4 mt-4">{name}</p>
+            <div className="flex flex-row w-full justify-evenly items-center m-4 rounded-md shadow-xl border border-gray-200 p-8 text-gray-500">
+                <img src={image} alt="" className="w-20 h-20" />
+                <p>{price == "-1" ? "Price not Listed" : price}</p>
+                <p>{rating}</p>
+            </div>
         </div>
-
     )
 }
 
