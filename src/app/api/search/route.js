@@ -1,7 +1,7 @@
 import  key  from '../../../../APIKey'
-export async function GET(req){
+export async function POST(req){
 
-    const request = await fetch('https://real-time-product-search.p.rapidapi.com/search-v2?q=Nike%20shoes&country=us&language=en&page=1&limit=10&sort_by=BEST_MATCH&product_condition=ANY', {
+    const request = await fetch('https://real-time-product-search.p.rapidapi.com/search-v2?q=Nike%20shoes&country=us&language=en&page=1&limit=20&sort_by=BEST_MATCH&product_condition=ANY', {
         method:'GET',
         headers: {
         'x-rapidapi-key': key,

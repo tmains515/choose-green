@@ -3,27 +3,31 @@ import { useState } from "react";
 import ItemTile from "./components/ItemTile";
 export default function Home() {
 	const [search, setSearch] = useState<string>("Thing");
-	const [searchResults, setSearchResults] = useState([
-	  {
-		name: "thing",
-		rating: 4,
-		price: "$10",
-	  },
-	]);
+	const [searchResults, setSearchResults] = useState([]);
+
+	interface Product {
+		product_photos: string[];
+		product_title: string;
+		typical_price_range: string[];
+		product_rating: string;
+	  }
+
 
 	const fetchSearch = async() => {
 		const request = await fetch('/api/search', {
-			method: 'GET',
+			method: 'POST',
 			headers: {
 				'Content-Type' : 'application/json'
-			}
+			},
+			body: JSON.stringify({})
 		})
 		if(!request.ok){
 			throw new Error("Could not fetch search data")
 		}
 		const data = await request.json()
+		setSearchResults(data.data.products)
 		console.log(data)
-		setSearchResults(data)
+
 	}
 
 
@@ -64,8 +68,8 @@ export default function Home() {
 			{/* Main Content */}
 			<main className="col-start-4 col-span-4 row-span-5 rounded-xl bg-white p-6 shadow-inner ml-4 overflow-y-scroll">
 				<h1 className="text-gray-600 text-2xl">Search for {search}</h1>
-				{searchResults.length > 0 ? searchResults.map( (item, index) => (
-					<ItemTile key={index} name={item.name} price={item.price} rating={item.rating}/>
+				{searchResults.length > 0 ? searchResults.map( (item: Product, index) => (
+					<ItemTile key={index} image={item.product_photos[0]} name={item.product_title} price={item.typical_price_range ?  item.typical_price_range[0] : "-1"} rating={item.product_rating }/>
 				)	
 			): "Nothing to display"}
 			</main>
