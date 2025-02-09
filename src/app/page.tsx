@@ -1,9 +1,16 @@
 'use client'
 import { useState } from "react";
 import ItemTile from "./components/ItemTile";
+import categorizeProduct from './api/filterData'
 export default function Home() {
 	const [search, setSearch] = useState<string>("");
 	const [searchResults, setSearchResults] = useState([]);
+	const [searchCategory, setSearchCategory] = useState<string>("");
+
+	/* Filter States */
+	const [priceFilter, setPriceFilter] = useState(null)
+	const [ratingFilter, setRatingFilter] = useState(null)
+
 
 	interface Product {
 		product_photos: string[];
@@ -26,15 +33,23 @@ export default function Home() {
 		if(!request.ok){
 			throw new Error("Could not fetch search data")
 		}
-		const data = await request.json()
-		setSearchResults(data.data.products)
-		console.log(data)
-
+		const productList = await request.json()
+		//const filterdData = await categorizeProduct(productList, searchCategory)
+		//setSearchResults(data.data.products)
+		setSearchResults(productList.data.products)
+		console.log(productList)
 	}
+
+
+
 
 	const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSearch(event.target.value);
 	  };
+
+	const handleCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		setSearchCategory(event.target.value)
+	}
 
 	return (
 		<div className="grid grid-rows-8 grid-cols-8 bg-[#ededed] shadow-xl rounded-2xl border border-gray-300 p-4 h-screen">
@@ -50,7 +65,7 @@ export default function Home() {
 					<h1 className="text-black mr-4 mt-2">Search:</h1>
 					<div className="bg-gray-400 flex w-full shadow-md mt-2 h-12 rounded-full">
 						<div className="flex ml-4 mr-2 ">
-							<select className="rounded-full bg-slate-400 text-center">
+							<select className="rounded-full bg-slate-400 text-center" onChange={handleCategory}>
 								<option value="all">All</option>
 								<option value="auto">Car</option>
 								<option value="home-good">Home Goods</option>
@@ -66,9 +81,10 @@ export default function Home() {
 				</div>
 			</div>
 
-			{/* Left Div */}
+			{/* Filter Div */}
 			<div className="w-full grid col-start-2 col-span-1 row-span-5 rounded-xl shadow-inner bg-white p-4 text-black">
-				<p>Label Filters</p>
+				<p>Price Range</p>
+
 			</div>
 
 			{/* Main Content */}

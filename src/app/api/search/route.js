@@ -1,4 +1,6 @@
 import  key  from '../../../../APIKey'
+
+
 export async function POST(req){
     const { query } = await req.json()
     const search = encodeURIComponent("eco friendly" + query)
@@ -23,3 +25,5 @@ export async function POST(req){
         }
     })
 }
+
+
